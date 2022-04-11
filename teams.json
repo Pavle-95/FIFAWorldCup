@@ -1,0 +1,340 @@
+[
+    [
+        {
+            "name": "Katar",
+            "place": 51,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Ekvador",
+            "place": 46,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Senegal",
+            "place": 20,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Holandija",
+            "place": 10,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        }
+    ],
+    [
+        {
+            "name": "Engleska",
+            "place": 5,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Iran",
+            "place": 21,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "SAD",
+            "place": 15,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Ukrajina",
+            "place": 27,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        }
+    ],
+
+    [
+        {
+            "name": "Argentina",
+            "place": 4,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Saudijska Arabija",
+            "place": 49,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Meksiko",
+            "place": 9,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Poljska",
+            "place": 26,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        }
+    ],
+    [
+        {
+            "name": "Francuska",
+            "place": 3,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Peru",
+            "place": 22,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Danska",
+            "place": 11,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Tunis",
+            "place": 35,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        }
+    ],
+
+    [
+        {
+            "name": "Španija",
+            "place": 7,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Novi Zeland",
+            "place": 101,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Nemačka",
+            "place": 12,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Japan",
+            "place": 23,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        }
+    ],
+    [
+        {
+            "name": "Belgija",
+            "place": 2,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Kanada",
+            "place": 38,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Maroko",
+            "place": 24,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Hrvatska",
+            "place": 16,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        }
+    ],
+    [
+        {
+            "name": "Brazil",
+            "place": 1,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Srbija",
+            "place": 25,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Švajcarska",
+            "place": 14,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Kamerun",
+            "place": 37,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        }
+    ],
+    [
+        {
+            "name": "Portugal",
+            "place": 8,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Gana",
+            "place": 60,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Urugvaj",
+            "place": 13,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        },
+        {
+            "name": "Južna Koreja",
+            "place": 29,
+            "points": 0,
+            "numWins": 0,
+            "numDraw": 0,
+            "numLoses": 0,
+            "givenGoals": 0,
+            "concededGoals": 0
+        }
+    ]
+]
