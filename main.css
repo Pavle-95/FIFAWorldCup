@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;300;400;500&display=swap');
+*{
+    --primary: #740727;
+    --secondary: #EDEDE3;
+    --font: 'Noto Sans', sans-serif;;
+}
+body{
+    box-sizing: border-box;
+    background-image:linear-gradient(to bottom, #000000c0, #000000c0) ,url('./img/Ras-Abu-Aboud-Stadium-Render-2-scaled.jpg');
+    font-family: var(--font);
+    background-size: cover;
+    background-attachment: fixed;
+    color: #EDEDE3;
+}
+h1{
+    text-align: center;
+    color: var(--secondary);
+    text-shadow: 4px 4px var(--primary);
+}
+button{
+    display: block;
+    margin: 0 4% 0 auto;
+    padding: 20px 30px;
+    border: none;
+    background-color: var(--primary);
+    color: var(--secondary);
+    border-radius: 5px;
+    font-family: var(--font);
+    font-size: 1.1rem;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+button:disabled{
+    opacity: 0.2;
+    cursor: default;
+}
+
+section{
+    display: none;
+}
+
+.container{
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5% auto 5% auto;
+}
+.group{
+    flex: 1 0 21%;
+    margin: 1em;
+    text-align: center;
+    background: #630e2a75;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    background: #630e2a75;
+
+}
+.group table th{
+    background: #740727;
+    color: #EDEDE3;
+    font-family: var(--font);
+    font-weight: 400;
+}
+
+
+
+
+/* Grop phase metches */
+.groupPhaseGames{
+    width: 100%;
+    height: 500px;
+    background: #630e2a6e;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.eighthsFinals,
+.quarterFinals,
+.semiFinals,
+.final{
+    width: 100%;
+    height: 300px;
+    background: #630e2a6e;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+/* Scroll */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #630e2a6e;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #740727;
+  }
+
+
+/* Responisve */
+@media screen and (max-width: 1100px) {
+    .group{
+        flex: 1 0 40%;
+        margin: 1em;
+        text-align: center;
+    }
+  }
+@media screen and (max-width: 545px) {
+    .group{
+        flex: 1 0 80%;
+        margin: 1em;
+        text-align: center;
+    }
+}

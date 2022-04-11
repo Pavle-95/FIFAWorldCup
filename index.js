@@ -1,96 +1,117 @@
-'use strict';
-let grupe = {0: 'A',1: 'B',2: 'C',3: 'D',4: 'E',5: 'F',6: 'G',7: 'H',}
+const btn = document.querySelector('#playAllGroupPhaseGame')
+        
+btn.addEventListener('click', ()=>{
+      btn.disabled = true;
+      document.querySelector('section').style.display='block';
+      main();
+  }); 
 
 const main = () => {
-  // Promenjive
-  let firstTwo = [];
-  let eighthsFinals = [];
-  let quarterFinals = [];
-  let semiFinal = [];
-  let final = [];
-
-  const fs = require('fs');
-  let rawdata = fs.readFileSync('teams.json');
-  let timovi = JSON.parse(rawdata);
-
-  // Igranje utakmica grupne faze i ispis
-  timovi.forEach((element, idx) => {
-    console.log(`
-Grupa: ${grupe[idx]}:
-  I kolo.
-    ${gamePlay(element[0], element[1])}
-    ${gamePlay(element[2], element[3])}
+    // ****************************************************************************
+    // Prikupljanja podataka iz JSON fajla
+    fetch("./teams.json")
+      .then((res) => {
+        return res.json();
+      })
   
-  II kolo.
-    ${gamePlay(element[0], element[2])}
-    ${gamePlay(element[1], element[3])}
+      // **************************************************************************
+      // Igranje virtualnih utakmica svako sa svakim
+      // Vracanja rezultate po grupama
+      .then((resJson) => {
   
-  III kolo.
-    ${gamePlay(element[0], element[3])}
-    ${gamePlay(element[1], element[2])}
-`
-    )
-  });
+        display(resJson)
+        play(resJson)
 
-  // Sortiranje timova po grupama 
-  for (let i = 0; i < timovi.length; i++) {
-    timovi[i].sort((b, a) => {
-      if (a.points == b.points) {
-        return (a.givenGoals - a.concededGoals) - (b.givenGoals - b.concededGoals)
-      }
-      if ((a.points == b.points)&&(a.givenGoals - a.concededGoals) == (b.givenGoals - b.concededGoals)) {
-        return a.givenGoals - b.givenGoals
-      }
-      else {
-        return a.points - b.points;
-      }
-    })
+        return resJson
+      })
+  
+      // *************************************************************************
+      //Vraca 8 grupa sa prva dva tima u odnosu koliko poena imaju 
+      .then((response) => {
+        var firstTwo = [];
+        response.forEach(element => {
+          firstTwo.push(element.splice(0, 2));
+        })
+        return firstTwo;
+      })
+  
+      // *************************************************************************
+      // Igranje eliminacionih faza Osmina finala
+      .then((eighthsFinal) => {
+        const osminaFinalaTabela = document.querySelector('.eighthsFinalsTabela');
+        const osminaFinalaUtakmice = document.querySelector('.eighthsFinals');
+
+        var winers = [];
+
+        winers = proba(eighthsFinal, osminaFinalaUtakmice, osminaFinalaTabela);
+         
+        return winers;
+      })
+  
+      // *************************************************************************
+      // Igranje eliminacionih faza Cetvrtina finala
+      .then((quarterFinals) => {
+        const cetvrtinaFinalaTabela = document.querySelector('.quarterFinalsTabela');
+        const cetvrtinaFinalaUtakmice = document.querySelector('.quarterFinals');
+
+        var winers = [];
+
+        winers = proba(quarterFinals, cetvrtinaFinalaUtakmice, cetvrtinaFinalaTabela);
+         
+        return winers;
+      })
+  
+      // *************************************************************************
+      // Igranje eliminacionih faza Polu finala
+      .then((semiFinals) => {
+        const semiFinalaTabela = document.querySelector('.semiFinalsTabela');
+        const semiFinalaUtakmice = document.querySelector('.semiFinals');
+
+        var winers = [];
+
+        winers = proba(semiFinals, semiFinalaUtakmice, semiFinalaTabela);
+         
+        return winers;
+      })
+  
+      // *************************************************************************
+      // Igranje eliminacionih finale finala
+      .then((final) => {        
+        const finaleTabela = document.querySelector('.finalsTabela')
+        const finaleUtakmice = document.querySelector('.final')
+        
+        var winers = [];
+
+        winers = proba(final, finaleUtakmice, finaleTabela);
+         
+        return winers;
+      })
+
+      // *************************************************************************
+      // FINALE
+      .then((winer)=>{
+        const winerShow = document.querySelector('.winer')
+          winerShow.innerHTML += `
+          <div class='group'>
+              <table> 
+                  <tr>
+                      <th>Winer of the 2022 Qatar WORLD CUP</th>
+                  </tr>
+                  <tr>
+                      <td>${winer[0].name}</td>
+                  </tr>
+              </table> 
+          </div>
+       `
+      })
   }
-
-  // Ispis grupa
-  display(timovi);
-
-  // izvlacenje prva dva tima iz svih grupa
-  timovi.forEach(element => {
-    firstTwo.push(element.splice(0, 2));
-  })
-
-  // igranje Eliminaciona faza - 1/8 finala:
-  console.log(`
-Eliminaciona faza - 1/8 finala:
-  `);
-  eighthsFinals.push(game(firstTwo));
   
-  // igranje Eliminaciona faza - 1/4 finala:
-  console.log(`
-Eliminaciona faza - 1/4 finala:
-  `);
-  quarterFinals.push(game(eighthsFinals));
-
-  // igranje Eliminaciona faza - 1/2 finala:
-  console.log(`
-Eliminaciona faza - 1/2 finala:
-  `);
-  semiFinal.push(game(quarterFinals));
-
-  // igranje Finalne utakmice:
-  console.log(`
-Veliko Finale:`
-  );
-  final.push(game(semiFinal));
-
-  // Proglasenje pobednika
-  console.log(`
-  Pobednik FIFA WORLD CUP-a je:
-    !!! ${final[0][0].name} !!!`);
-
-
-// Funkcija za igranje eliminacionih utakmmica
-  function eliminationGame(x,y){
-    let teamA = Math.floor(Math.random() * 5);
-    let teamB = Math.floor(Math.random() * 5);
-
-    let winer;
+  // // Funkcija za igranje utakmica eliminacione faze prvi i drugi iz svih grupa
+  const eliminationGame = (x,y, where, idx) => {
+    var teamA = Math.floor(Math.random() * 5);
+    var teamB = Math.floor(Math.random() * 5);
+  
+    var winer;
   
     x.goals = teamA;
     y.goals = teamB;
@@ -104,60 +125,40 @@ Veliko Finale:`
     if (x.goals == y.goals) {
       winer = x
     }
-    console.log(`   ${x.name} ${x.goals}:${y.goals} ${y.name}`);
-    return winer
+
+    where.innerHTML += `
+        <h2>Par: ${idx + 1} </h2>
+        <p> ${x.name}  ${x.goals} : ${y.goals} ${y.name}  Pobednik je: ${winer.name}</p>
+        <p> Dalje ide:  ${winer.name} </p>
+    `
+    return winer;
   }
-
-// Funkcija za Mesanje timova po grupama i pozivanje funkicje eliminacionih utakmica
-  function game(data) {
-    let allTeams = [];
-    let groupA = [];
-    let groupB = [];
-    let reversedGroupB = [];
-    let winers = [];
-
-    data.forEach((element) => {
-      allTeams = allTeams.concat(element);
-    })
-    groupA = allTeams.filter((element, idx) => {
-      return idx % 2 === 0;
-    });
-    groupB = allTeams.filter((element, idx) => {
-      return idx % 2 === 1;
-    });
-    reversedGroupB = groupB.reverse();
-
-    for (let i = 0; i < groupA.length; i++) {
-      winers.push(eliminationGame(groupA[i], reversedGroupB[i]));
-    }
-    return winers;
-  }
-
-// Funkcija za igranje utakmica
-  function gamePlay(x, y) {
-    let teamA = Math.floor(Math.random() * 5);
-    let teamB = Math.floor(Math.random() * 5);
-
+  
+  // Funkcija za igranje utakmica grupne faze svako sa svakim
+  const groupGame = (x, y) => {
+    var teamA = Math.floor(Math.random() * 5);
+    var teamB = Math.floor(Math.random() * 5);
+  
+    var winer;
+  
     x.goals = teamA;
     y.goals = teamB;
-
-    let winer;
-
-    if (teamA > teamB) {
-      winer = `${x.name} ${x.goals}:${y.goals} ${y.name}`;
+  
+    if (x.goals > y.goals) {
+      winer = `Pobednik je: ${x.name}. Rezultat utakmice: ${x.name} ${x.goals}: ${y.goals} ${y.name}`;
       x.points += 3;
       x.numWins += 1;
       y.numLoses += 1;
     }
-    if (teamA < teamB) {
-
-      winer = `${y.name} ${y.goals}:${x.goals} ${x.name}`;
+    if (x.goals < y.goals) {
+    
+      winer = `Pobednik je: ${y.name}. Rezultat utakmice: ${y.name} ${y.goals}: ${x.goals} ${x.name}`;
       y.points += 3;
       y.numWins += 1;
       x.numLoses += 1;
     }
-    if (teamA == teamB) {
-      winer = `${x.name} ${x.goals}:${y.goals} ${y.name} `
+    if (x.goals == y.goals) {
+      winer = `Utakmica je zavrsena nereseno:  ${x.name} ${x.goals} : ${y.goals} ${y.name} `
       x.points += 1;
       y.points += 1;
       x.numDraw += 1;
@@ -167,23 +168,136 @@ Veliko Finale:`
     x.concededGoals += y.goals
     y.givenGoals += y.goals
     y.concededGoals += x.goals
-
     return winer;
   }
+  
+  // Play  function
+  const play = (resJson) => {
+    const allGameGropPhase = document.querySelector('.groupPhaseGames')
+  
+    resJson.forEach((element, idx)=> {
+      allGameGropPhase.innerHTML += `
+  
+        <h2>Group: ${idx + 1}</h2>
+        <h3>Prvo kolo Grupe ${idx + 1}</h3>
+        <p>${groupGame(element[0], element[1])}</p>
+        <p>${groupGame(element[2], element[3])}</p>
+  
+        <h3>Drugo kolo Grupe ${idx + 1}</h3>
+        <p>${groupGame(element[0], element[2])}</p>
+        <p>${groupGame(element[1], element[3])}</p>
 
-// Funkcija za ispis grupe
-  function display(data) {
+        <h3>Trece kolo Grupe ${idx + 1}</h3>
+        <p>${groupGame(element[0], element[3])}</p>
+        <p>${groupGame(element[1], element[2])}</p>
+      `
+    });
+  
+    for (let i = 0; i < resJson.length; i++) {
+      resJson[i].sort((b,a) =>{
+        if(a.points == b.points){
+          return (a.givenGoals - a.concededGoals) - (b.givenGoals - b.concededGoals)
+        }
+        else{
+          return a.points - b.points;
+        }
+      }) 
+      display(resJson);
+    }
+    return resJson;
+  }
+
+  // Mesanje protivnika igranje svako sa svakim i ispis
+  const proba = (data, whereUtakmice, whereTable) =>{
+        var allTeams = [];
+        var groupA = [];
+        var groupB = [];
+        var reversedGroupB = [];
+        var winers = [];
+  
+        data.forEach((element) => {
+          allTeams = allTeams.concat(element);
+        })
+        groupA = allTeams.filter((element, idx) => {
+          return idx % 2 === 0;
+        });
+        groupB = allTeams.filter((element, idx) => {
+          return idx % 2 === 1;
+        });
+        reversedGroupB = groupB.reverse();
+
+        for (let i = 0; i < groupA.length; i++) {
+          winers.push(eliminationGame(groupA[i], reversedGroupB[i], whereUtakmice, i));
+        }
+
+        for (let i = 0; i < groupA.length; i++) {
+          whereTable.innerHTML += `
+            <div class='group'>
+                <table> 
+                    <tr>
+                        <th>${i+1}. par</th>
+                    </tr>
+                    <tr>
+                        <td>${groupA[i].name}</td>
+                    </tr>
+                    <tr>
+                        <td>${groupB[i].name}</td>
+                    </tr>
+                </table> 
+            </div>
+          `
+        }
+        return winers;
+  }
+ 
+  // Ispis utakmica po grupama
+  const display = (data) =>{
+    const group = document.querySelectorAll('.group');
     for (let i = 0; i < data.length; i++) {
-      console.log(`
-Groupa: ${grupe[i]}
-  1. ${data[i][0].name} (${data[i][0].place})     ${data[i][0].numWins}  ${data[i][0].numDraw}  ${data[i][0].numLoses}  ${data[i][0].givenGoals}:${data[i][0].concededGoals}  ${data[i][0].points}
-  2. ${data[i][1].name} (${data[i][1].place})     ${data[i][1].numWins}  ${data[i][1].numDraw}  ${data[i][1].numLoses}  ${data[i][1].givenGoals}:${data[i][1].concededGoals}  ${data[i][1].points}
-  3. ${data[i][2].name} (${data[i][2].place})     ${data[i][2].numWins}  ${data[i][2].numDraw}  ${data[i][2].numLoses}  ${data[i][2].givenGoals}:${data[i][2].concededGoals}  ${data[i][2].points}
-  4. ${data[i][3].name} (${data[i][3].place})     ${data[i][3].numWins}  ${data[i][3].numDraw}  ${data[i][3].numLoses}  ${data[i][3].givenGoals}:${data[i][3].concededGoals}  ${data[i][3].points}
-`
-      );
+      group[i].innerHTML = `
+        <h2>Group ${i+1}</h2>
+          <table> 
+             <tr>
+                 <th>Team </th>
+                 <th>W</th>
+                 <th>D</th>
+                 <th>L</th>
+                 <th>GG:CG</th>
+                 <th>PTS</th>
+             </tr>
+             <tr>
+                 <td>${data[i][0].name} (${data[i][0].place})</td>
+                 <td>${data[i][0].numWins}</td>
+                 <td>${data[i][0].numDraw}</td>
+                 <td>${data[i][0].numLoses}</td>
+                 <td>${data[i][0].givenGoals}:${data[i][0].concededGoals}</td>
+                 <td>${data[i][0].points}</td>
+             </tr>
+             <tr>
+                 <td>${data[i][1].name} (${data[i][1].place})</td>
+                 <td>${data[i][1].numWins}</td>
+                 <td>${data[i][1].numDraw}</td>
+                 <td>${data[i][1].numLoses}</td>
+                 <td>${data[i][1].givenGoals}:${data[i][1].concededGoals}</td>
+                 <td>${data[i][1].points}</td>
+             </tr>
+             <tr>
+                 <td>${data[i][2].name} ${data[i][2].place})</td>
+                 <td>${data[i][2].numWins}</td>
+                 <td>${data[i][2].numDraw}</td>
+                 <td>${data[i][2].numLoses}</td>
+                 <td>${data[i][2].givenGoals}:${data[i][2].concededGoals}</td>
+                 <td>${data[i][2].points}</td>
+             </tr>
+               <tr>
+                 <td>${data[i][3].name} (${data[i][3].place})</td>
+                 <td>${data[i][3].numWins}</td>
+                 <td>${data[i][3].numDraw}</td>
+                 <td>${data[i][3].numLoses}</td>
+                 <td>${data[i][3].givenGoals}:${data[i][3].concededGoals}</td>
+                 <td>${data[i][3].points}</td>
+             </tr>
+           </table> 
+      `  
     }
   }
-}
-
-main();
